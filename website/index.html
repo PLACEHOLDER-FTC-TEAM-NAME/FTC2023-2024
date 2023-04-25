@@ -1,0 +1,413 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoHance Studios</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100;200;300;400;500;600;700;900&family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/phosphor-icons"></script>
+</head>
+<body>
+    
+    <div id="fp">
+        <div id="fpOverlay">
+            <div id="logoContainer">
+                <p>CoHance Studios</p>
+                <div id="socialCont">
+                    <a href="https://www.youtube.com/@cohancestudios138" id="yt"><i class="ph-youtube-logo-fill" ></i></a>
+                    <!--<a href="https://github.com/CG-Spectre" id="gh"><i class="ph-github-logo-fill"></i></a>-->
+                    <a href="https://discord.gg/ZDRdumu692" id="dis"><i class="ph-discord-logo-fill"></i></a>
+                </div>
+                
+                
+            </div>
+            <div id="middleDiv">
+                <p id="middleDivH">CoHance Studios</p>
+                <p id="middleDivB">We're a software development team working on multiple projects.</p>
+            </div>
+            <a id="downButton" href="#sp">
+                <i class="ph-arrow-down"></i>
+            </a>
+        </div>
+    </div>
+    <div id="sp">
+        <div class="infoDiv">
+            <p class="subtitle">Skills</p>
+            <p class="bodyText">Members of our team have experience in programming, photoshop, 3D modeling, managing a community, and business</p>
+        </div>
+        <div class="infoDiv">
+            <p class="subtitle">About Us</p>
+            <p class="bodyText">Our end goal is to complete a series of products and projects that will benefit and make a difference in people's lives.</p>
+        </div>
+        
+        <div class="infoDiv">
+            <p class="subtitle">Projects</p>
+        </div>
+        <div id="projectsContainer">
+            <div id="projects">
+                <a class="project" href="https://blaze.cohancestudios.com">
+                    <p class="pTitle">Blaze Client</p>
+                    <img src="./img/projects/blazeclient.png" alt="">
+                    <p class="pStatus" style="background-color: rgb(2, 114, 2);">Done. Coninuing to update.</p>
+                </a>
+                <a class="project" href="https://discord.gg/ZDRdumu692">
+                    <p class="pTitle">CoHance Tai</p>
+                    <img src="./img/projects/cht.png" alt="">
+                    <p class="pStatus" style="background-color: rgb(2, 114, 2);">Done. Continuing to update.</p>
+                </a>
+                <a class="project" href="https://discord.gg/ZDRdumu692">
+                    <p class="pTitle">CHAuth</p>
+                    <img src="./img/projects/chauth.png" alt="">
+                    <p class="pStatus" style="background-color: rgb(2, 114, 2);">In progress.</p>
+                </a>
+                <a class="project" href="https://discord.gg/ZDRdumu692">
+                    <p class="pTitle">CoCord</p>
+                    <img src="./img/projects/cocord.png" alt="">
+                    <p class="pStatus" style="background-color: rgb(112, 114, 2);">Paused.</p>
+                </a>
+                <a class="project" href="https://discord.gg/ZDRdumu692">
+                    <p class="pTitle">CoHance Social Media</p>
+                    <img src="./img/projects/ch.png" alt="">
+                    <p class="pStatus" style="background-color: rgb(112, 114, 2);">Paused.</p>
+                </a>
+                <a class="project" href="https://discord.gg/ZDRdumu692">
+                    <p class="pTitle">CHMC</p>
+                    <img src="./img/projects/chmc.png" alt="">
+                    <p class="pStatus" style="background-color: rgb(112, 114, 2);">Paused.</p>
+                </a>
+            </div>
+        </div>
+        <div class="infoDiv">
+            <p class="subtitle">Members</p>
+            <p class="bodyText">SpectreDev: Programmer experienced in over 13 programming languages.<br><br>Puddlez: Designer experienced in 3D modeling/Cadding and photoshop.<br><br>Genetic: Manager experienced in managing communities and business.</p>
+        </div>
+        <div class="contact">
+            <p class="subtitle">Contact</p>
+            <p class="bodyText">You may contact us through email <a id="emailButton" style="cursor: pointer; text-decoration:underline;" href="mailto:spectrecgames@gmail.com?subject=I saw your website!">spectrecgames@gmail.com</a> or join our <a style="text-decoration: underline;" href="https://discord.gg/ZDRdumu692">Discord</a> and DM one of the founders.</p>
+        </div>
+    </div>
+    <script>
+        document.getElementById("emailButton").addEventListener("click", ()=>{
+            
+        });
+        let currentOffset = 0;
+        let maxOffset = 100;
+        let currentContainerOffset = 0;
+        window.onload = function(){
+            let totalWidth = 0;
+            let repeatTimes;
+            let itemArray = [];
+            [...Array.from(document.getElementById("projects").children)].forEach((e)=>{
+                totalWidth += 260;
+                itemArray[itemArray.length] = e;
+            });
+            repeatTimes = Math.round(window.innerWidth*2/totalWidth+0.5) - 1;
+            document.getElementById("projects").style.width = ((repeatTimes+1)*(totalWidth+100))+"px";
+            document.getElementById("projectsContainer").style.width = ((repeatTimes+1)*(totalWidth+100))+"px";
+            for(let i = 0; i < repeatTimes; i++){
+                for(d in itemArray){
+                    document.getElementById("projects").appendChild(itemArray[d].cloneNode(true));
+                }
+            }
+            
+            startBelt();
+            
+        }
+        function startBelt(){
+            currentOffset += 250;
+            document.getElementById("projects").style.transform = "translateX("+currentOffset+"px)";
+            setTimeout(()=>{
+                startBelt();
+            }, 5000)
+            for(i in document.getElementById("projects").children){
+                if(i < document.getElementById("projects").children.length){
+                    const e = document.getElementById("projects").children[i];
+                    if(getPositionX(e) > window.innerWidth){
+                        const clone = e.cloneNode(true);
+                        e.remove();
+                        $(clone).prependTo(document.getElementById("projects"));
+                        currentContainerOffset -= 270;
+                    }
+                    
+                }
+            }
+            document.getElementById("projectsContainer").style.transform = "translateX("+currentContainerOffset+"px)";
+        }
+        function getPositionX(element) {
+            var rect = element.getBoundingClientRect();
+            return rect.x;
+        }
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        .project img{
+            width: 170px;
+            border-radius: 15px;
+            
+        }
+        .project{
+            margin-left: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: column;
+            background-color: rgba(255, 255, 255, 0.1);
+            height: 100%;
+            max-width: 250px;
+            width: calc(100vw - 10px);
+            max-height: 250px;
+            height: calc(100vw - 10px);
+            border-radius: 15px;
+        }
+        .pStatus{
+            margin: 0;
+            width: fit-content;
+            padding: 3px;
+            border-radius: 5px;
+        }
+        .pTitle{
+            width: 100%;
+            font-size: 20px;
+            text-align: center;
+            margin: 0;
+        }
+        #projects{
+            width: 100vw;
+            flex-wrap: wrap;
+            transition:transform linear 5s;
+            height: 300px;
+            position: relative;
+            display: flex;
+
+        }
+        #projectsContainer{
+            width: 100vw;
+            
+            height: 300px;
+            position: relative;
+            display: flex;
+
+        }
+        .subtitle{
+            font-size: 35px;
+            width: max-content;
+            max-width: 500px;
+            
+        }
+        .bodyText{
+            font-size: 20px;
+            color: rgb(207, 207, 207);
+            width: fit-content;
+            max-width: 500px;
+        }
+        
+        html, body{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            overflow-x:hidden;
+        }
+        html{
+            scroll-behavior: smooth;
+        }
+        *::-webkit-scrollbar{
+            background-color: transparent;
+            width: 5px;
+            height: 0;
+            
+        }
+        *::-webkit-scrollbar-thumb{
+            background-color: rgba(212, 212, 212, 0.479);
+            border-radius: 10px;
+            
+        }
+        *::-webkit-scrollbar-thumb:hover{
+            background-color: rgba(212, 212, 212, 0.856);
+        }
+        body{
+            background-image: url("./img/backgroundTexture.png");
+            background-repeat: repeat;
+            background-position: center;
+        }
+        #sp{
+            width: 100vw;
+            position: absolute;
+            top: 100vh;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+        @keyframes materialize {
+            0%{
+                opacity: 0;
+            }
+            100%{
+                opacity: 1;
+            }
+        }
+        #downButton{
+            cursor: pointer;
+            position: absolute;
+            top: calc(100vh - 100px);
+            background-color: rgba(0, 0, 0, 0.61);
+            width: 75px;
+            height: 75px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 100px;
+            font-size: 50px;
+            animation: materialize 2s;
+        }
+        #middleDivH{
+            font-size: 45px;
+            animation: leftright 2s;
+        }
+        @keyframes leftright {
+            0%{
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            100%{
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        @keyframes rightleft {
+            0%{
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            100%{
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        #middleDivB{
+            animation: rightleft 2s;
+            margin-top: 0;
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.671);
+        }
+        #middleDiv{
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        a{
+            text-decoration: none;
+        }
+        *{
+            color: rgb(218, 218, 218);
+            font-family: 'Lexend Deca', sans-serif;
+        }
+        #fp{
+            width: 100vw;
+            height: 100vh;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-image: url("./img/background.jpeg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        #fpOverlay{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+        #logoContainer{
+            width: 100vw;
+            height: 75px;
+            border-radius: 0px;
+            background-color: rgba(0, 0, 0, 0.418);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 30px;
+            animation: moveInLogo 2s;
+        }
+        #logoContainer p{
+            color: rgb(255, 255, 255);
+            position: absolute;
+            left: 20px;
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+            font-weight: 600;
+        }
+        
+        #socialCont{
+            position: absolute;
+            right: 20px;
+            top: 0;
+            width: min-content;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 75px;
+        }
+        #socialCont a{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+        #gh img{
+            filter: invert();
+        }
+        #socialCont a i{
+            font-size: 50px;
+        }
+        @keyframes moveInLogo {
+            0%{
+                top:-75px;
+            }
+        
+            100%{
+                top: 0px;
+            }
+        }
+
+        @media only screen and (max-width:417px){
+            #socialCont{
+                right: 0;
+            }
+            #socialCont a{
+                padding: 5px;
+            }
+        }
+        @media only screen and (max-width:355px){
+            
+            #socialCont a{
+                padding: 0px;
+            }
+        }
+        @media only screen and (max-width:335px){
+            
+            a#gh{
+                display: none;
+            }
+            a#yt{
+                display: none;
+            }
+        }
+    </style>
+</body>
+</html>
