@@ -5,4 +5,9 @@ public class MecanumConstants extends Constants{
     float side_weight_compensation;
     float accel_time;
     float accel_distance;
+    float deadwheeldiameter;
+
+    public MecanumConstants(float deadwheeldiameter){
+        this.deadwheeldiameter = deadwheeldiameter;
+    }
 }
