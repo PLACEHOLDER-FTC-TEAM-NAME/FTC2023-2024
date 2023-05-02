@@ -2,10 +2,14 @@ package org.firstinspires.ftc.teamcode.config;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.HardwareDevice;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.swiftbot.constants.MecanumConstants;
-import org.firstinspires.ftc.teamcode.swiftbot.robot.MecanumRobot;
+import net.nexusrobotics.swiftbot.constants.MecanumConstants;
+import net.nexusrobotics.swiftbot.robot.MecanumRobot;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+
+import org.firstinspires.ftc.robotcore.external.hardware.camera.Camera;
 
 public class NexusMecanumDrive extends MecanumRobot {
 
@@ -14,9 +18,11 @@ public class NexusMecanumDrive extends MecanumRobot {
     public DcMotor rightFront;
     public DcMotor rightBack;
 
-    public DigitalChannel dcParallelDeadWheel1;
-    public DigitalChannel dcParallelDeadWheel2;
-    public DigitalChannel dcPerpendicularDeadWheel;
+    public DcMotorEx dcParallelDeadWheel1;
+    public DcMotorEx dcParallelDeadWheel2;
+    public DcMotorEx dcPerpendicularDeadWheel;
+
+    public Camera camera;
 
     public NexusMecanumDrive(MecanumConstants constants, HardwareMap hardwareMap) {
         super(constants);
@@ -25,9 +31,15 @@ public class NexusMecanumDrive extends MecanumRobot {
         rightBack = hardwareMap.get(DcMotor.class, "rightBack");
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
 
-        dcParallelDeadWheel1 = hardwareMap.get(DigitalChannel.class, "dcParallelDeadWheel1");
-        dcParallelDeadWheel2 = hardwareMap.get(DigitalChannel.class, "dcParallelDeadWheel2");
-        dcPerpendicularDeadWheel = hardwareMap.get(DigitalChannel.class, "dcPerpendicularDeadWheel");
+        dcParallelDeadWheel1 = hardwareMap.get(DcMotorEx.class, "dcParallelDeadWheel1");
+        dcParallelDeadWheel2 = hardwareMap.get(DcMotorEx.class, "dcParallelDeadWheel2");
+        dcPerpendicularDeadWheel = hardwareMap.get(DcMotorEx.class, "dcPerpendicularDeadWheel");
+        dcParallelDeadWheel2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        dcParallelDeadWheel1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        dcPerpendicularDeadWheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        camera = hardwareMap.get(Camera.class, "camera");
+        registerPart("camera", (HardwareDevice) camera);
     }
 
     @Override
@@ -51,17 +63,27 @@ public class NexusMecanumDrive extends MecanumRobot {
     }
 
     @Override
-    public DigitalChannel getOdoParallel1() {
+    public DcMotorEx getOdoParallel1() {
         return dcParallelDeadWheel1;
     }
 
     @Override
-    public DigitalChannel getOdoParallel2() {
+    public DcMotorEx getOdoParallel2() {
         return dcParallelDeadWheel2;
     }
 
     @Override
-    public DigitalChannel getOdoPerp2() {
+    public DcMotorEx getOdoPerp() {
         return dcPerpendicularDeadWheel;
+    }
+
+    @Override
+    public HardwareDevice getCustomPartCast(Class<? extends HardwareDevice> partClass, String part){
+        return partClass.cast(customParts.get(part));
+    }
+
+    @Override
+    public HardwareDevice getCustomPart(String part){
+        return customParts.get(part);
     }
 }
