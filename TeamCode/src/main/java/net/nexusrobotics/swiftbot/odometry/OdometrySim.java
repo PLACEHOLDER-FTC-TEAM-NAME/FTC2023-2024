@@ -1,19 +1,23 @@
 package net.nexusrobotics.swiftbot.odometry;
 
+import android.media.MediaPlayer;
+
 import net.nexusrobotics.swiftbot.constants.MecanumConstants;
 import net.nexusrobotics.swiftbot.localization.Localization;
-import net.nexusrobotics.swiftbot.robot.MecanumRobot;
+import net.nexusrobotics.swiftbot.localization.LocalizationSim;
 
-public class Odometry {
+import org.checkerframework.checker.units.qual.C;
+
+public class OdometrySim {
     MecanumRobot robot;
-    MecanumConstants constants;
-    Localization localization;
+    Constants constants;
+    LocalizationSim localization;
     int timederivative = 10;
     float odoDiameter;
 
-    public Odometry(MecanumRobot robot, Localization localization){
+    public OdometrySim(LocalizationSim localization){
         this.constants = robot.constants;
-        this.robot = robot;
+        this.robot = new MecanumRobot();
         this.localization = localization;
         this.odoDiameter = constants.deadwheeldiameter;
     }
@@ -24,6 +28,8 @@ public class Odometry {
             int lastPosP2 = robot.getOdoParallel2().getCurrentPosition();
             int lastPosPerp = robot.getOdoPerp().getCurrentPosition();
             while(true){
+                System.out.println(localization.currentY);
+                robot.driveForward(1);
                 int dP1 = robot.getOdoParallel1().getCurrentPosition() - lastPosP1;
                 int dP2 = robot.getOdoParallel2().getCurrentPosition() - lastPosP2;
                 int dPerp = robot.getOdoPerp().getCurrentPosition() - lastPosPerp;
@@ -45,7 +51,7 @@ public class Odometry {
                     localization.setHeading((float) (localization.currentHeading + (360*(dOdoPerp/(2*constants.odoperptocenter*Math.PI)))));
                     if((localization.currentHeading > 0 && localization.currentHeading < 90) || (localization.currentHeading > 270 && localization.currentHeading < 360)){
                         // positive y increase
-                       yMultiplier = 1;
+                        yMultiplier = 1;
                     }else{
                         yMultiplier = -1;
                     }
@@ -68,9 +74,9 @@ public class Odometry {
 
                 }*/
 
-                    lastPosP1 = robot.getOdoParallel1().getCurrentPosition();
-                    lastPosP2 = robot.getOdoParallel2().getCurrentPosition();
-                    lastPosPerp = robot.getOdoPerp().getCurrentPosition();
+                lastPosP1 = robot.getOdoParallel1().getCurrentPosition();
+                lastPosP2 = robot.getOdoParallel2().getCurrentPosition();
+                lastPosPerp = robot.getOdoPerp().getCurrentPosition();
                 try {
                     Thread.sleep(timederivative);
                 } catch (InterruptedException e) {
@@ -80,3 +86,49 @@ public class Odometry {
         }).start();
     }
 }
+
+class Encoder{
+    int pos = 0;
+    public Encoder(){
+
+    }
+    public int getCurrentPosition(){
+        return pos;
+    }
+    public void incrementPos(int ipos){
+        pos += ipos;
+    }
+}
+
+class MecanumRobot{
+    public void driveForward(int inches){
+        OdoP1.incrementPos((int)(inches*(Math.PI*constants.deadwheeldiameter)));
+    }
+    Encoder OdoPerp;
+    Encoder OdoP1;
+    Encoder OdoP2;
+    public Constants constants;
+    public MecanumRobot(){
+        OdoPerp = new Encoder();
+        OdoP1 = new Encoder();
+        OdoP2 = new Encoder();
+        constants = new Constants();
+    }
+    public Encoder getOdoParallel1() {
+        return OdoP1;
+    }
+    public Encoder getOdoPerp() {
+        return OdoPerp;
+    }
+    public Encoder getOdoParallel2() {
+        return OdoP2;
+    }
+}
+
+class Constants{
+    public static float deadwheeldiameter = 2;
+    public static int ticks_per_rotation = 360;
+    public static float odoperptocenter = 6;
+}
+
+
