@@ -1,4 +1,4 @@
 package net.nexusrobotics.swiftbot.constants;
 
-public class Constants  {
+public class Constants {
 }

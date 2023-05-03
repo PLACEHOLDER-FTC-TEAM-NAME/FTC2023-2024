@@ -17,7 +17,7 @@ public class Odometry {
         this.localization = localization;
         this.odoDiameter = constants.deadwheeldiameter;
     }
-
+    int threshold = 10;
     public void init(){
         new Thread(()->{
             int lastPosP1 = robot.getOdoParallel1().getCurrentPosition();
@@ -38,6 +38,12 @@ public class Odometry {
                     // 1 is right, 2 is left
                     int direction = dPerp > 0 ? 2 : 1; // may be debug idk
                     localization.setHeading((float) (localization.currentHeading + (360*(dOdoPerp/(2*constants.odoperptocenter*Math.PI)))));
+                }else if((dP1 - dP2 > threshold && ((dP1 > 0 && dP2 > 0) || (dP1 < 0 && dP2 < 0)))||(dP1 + dP2 > threshold && ((dP1 < 0 && dP2 > 0) || (dP1 > 0 && dP2 < 0)))) {
+                    // update heading and lateral positioning
+                    localization.setHeading((float) (localization.currentHeading + (360*(dOdoPerp/(2*constants.odoperptocenter*Math.PI)))));
+                    localization.setX((float) (localization.currentX + ((dOdoP1+dOdoP2)/2)));
+                }else if((dP1>0&&dP2>0)||(dP1<0&&dP2<0)){
+                    localization.setX((float) (localization.currentX + ((dOdoP1+dOdoP2)/2)));
                 }
 
                 lastPosP1 = robot.getOdoParallel1().getCurrentPosition();
