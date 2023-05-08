@@ -8,9 +8,12 @@ public class MecanumConstants extends Constants{
     public float deadwheeldiameter;
     public int ticks_per_rotation;
     public float odoperptocenter;
+    public float deadWheelDistance;
 
-    public MecanumConstants(float deadwheeldiameter, int ticks_per_rotation){
+    public MecanumConstants(float deadwheeldiameter, int ticks_per_rotation, float odoperptocenter, float deadWheelDistance){
         this.deadwheeldiameter = deadwheeldiameter;
         this.ticks_per_rotation = ticks_per_rotation;
+        this.deadWheelDistance = deadWheelDistance;
+        this.odoperptocenter = odoperptocenter;
     }
 }

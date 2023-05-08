@@ -25,5 +25,8 @@ public class Localization {
 
     public void setHeading(float h){
         this.currentHeading = h;
+        if(h >= 360){
+            this.currentHeading = this.currentHeading%360;
+        }
     }
 }
