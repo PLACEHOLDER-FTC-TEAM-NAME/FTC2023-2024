@@ -7,7 +7,7 @@ import net.nexusrobotics.swiftbot.robot.MecanumRobot;
 public class Odometry {
     MecanumRobot robot;
     MecanumConstants constants;
-    Localization localization;
+    public Localization localization;
     int timederivative = 10;
     float odoDiameter;
 

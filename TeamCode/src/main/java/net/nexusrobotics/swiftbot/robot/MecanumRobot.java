@@ -1,5 +1,6 @@
 package net.nexusrobotics.swiftbot.robot;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
@@ -23,6 +24,7 @@ public abstract class MecanumRobot {
     public abstract DcMotor getBackRight();
     public abstract DcMotor getFrontLeft();
     public abstract DcMotor getFrontRight();
+    public abstract BNO055IMU getIMU();
     public abstract DcMotorEx getOdoParallel1();
     public abstract DcMotorEx getOdoParallel2();
     public abstract DcMotorEx getOdoPerp();

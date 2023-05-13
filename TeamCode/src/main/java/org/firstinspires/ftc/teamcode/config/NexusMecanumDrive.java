@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.config;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareDevice;
@@ -18,6 +19,8 @@ public class NexusMecanumDrive extends MecanumRobot {
     public DcMotor rightFront;
     public DcMotor rightBack;
 
+    public BNO055IMU imu;
+
     public DcMotorEx dcParallelDeadWheel1;
     public DcMotorEx dcParallelDeadWheel2;
     public DcMotorEx dcPerpendicularDeadWheel;
@@ -30,6 +33,8 @@ public class NexusMecanumDrive extends MecanumRobot {
         leftFront = hardwareMap.get(DcMotor.class, "leftFront");
         rightBack = hardwareMap.get(DcMotor.class, "rightBack");
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
+
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
 
         dcParallelDeadWheel1 = hardwareMap.get(DcMotorEx.class, "dcParallelDeadWheel1");
         dcParallelDeadWheel2 = hardwareMap.get(DcMotorEx.class, "dcParallelDeadWheel2");
@@ -60,6 +65,11 @@ public class NexusMecanumDrive extends MecanumRobot {
     @Override
     public DcMotor getFrontRight() {
         return rightFront;
+    }
+
+    @Override
+    public BNO055IMU getIMU() {
+        return imu;
     }
 
     @Override
