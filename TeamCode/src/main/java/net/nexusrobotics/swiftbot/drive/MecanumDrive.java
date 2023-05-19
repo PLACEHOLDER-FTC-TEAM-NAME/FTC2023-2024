@@ -33,7 +33,11 @@ public class MecanumDrive {
             float rightX = getOneFromForward(odometry.localization.currentHeading + 90).get("x");
             float rightY = getOneFromForward(odometry.localization.currentHeading + 90).get("y");
 
+            if(toRotate > 0){
 
+            }else if(toX > 0 || toY > 0){
+
+            }
 
             try {
                 Thread.sleep(10);
